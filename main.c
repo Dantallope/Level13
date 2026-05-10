@@ -67,7 +67,7 @@ void readLine (int fd, char *buffer, int size){
 
     buffer[i] = '\0';
 
-    //trimline func
+    newLineTrim(buffer);
 }
 
 int connectToServer(const char *hostname){
@@ -80,4 +80,12 @@ int connectToServer(const char *hostname){
         0
     );
     return fd;
+}
+
+void newLineTrim(char *str){
+    int len = strlen(str);
+
+    if (len > 0 && str[len-1] == '\n'){
+        str[len - 1] = '\0';
+    }
 }
