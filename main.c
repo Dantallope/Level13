@@ -71,5 +71,13 @@ void readLine (int fd, char *buffer, int size){
 }
 
 int connectToServer(const char *hostname){
-    return 0;
+    printf("Connecting to %s...\n",hostname);
+
+    int fd = create_inet_stream_socket(
+        hostname,
+        PORT,
+        LIBSOCKET_IPv4,
+        0
+    );
+    return fd;
 }
