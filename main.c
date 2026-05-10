@@ -11,6 +11,7 @@
 void readLine (int fd, char *buffer, int size);
 void newLineTrim (char *str);
 int connectToServer(const char *hostname);
+void sendCommand(int fd, const char *command);
 
 int main(void){
 
@@ -112,4 +113,8 @@ void newLineTrim(char *str){
     if (len > 0 && str[len-1] == '\n'){
         str[len - 1] = '\0';
     }
+}
+
+void sendCommand(int fd, const char *command){
+    write(fd, command, strlen(command));
 }
