@@ -15,6 +15,7 @@ int connectToServer(const char *hostname);
 int main(void){
 
     int choice;
+    char choice2;
     int serverChoice;
     char hostname[100];
 
@@ -44,6 +45,29 @@ int main(void){
     char greeting[BUFFER_SIZE];
     readLine(fd, greeting, BUFFER_SIZE);
     printf("Connected: %s\n", greeting);
+
+    do {
+        printf("\nMenu\n");
+        printf("L)ist files\n");
+        printf("D)ownload a file\n");
+        printf("Q)uit\n");
+        
+        scanf("%c",&choice2);
+
+    getchar();
+
+    if (choice2 == 'L'){
+        //listfiles
+    }else if (choice2 == 'D'){
+        //downloadfile
+    }else if (choice2 == 'Q'){
+        //quit
+    }else{
+        printf("Invalid menu selection");
+    }
+} while(choice != 'Q');
+
+close(fd);
 }
 
 void readLine (int fd, char *buffer, int size){
