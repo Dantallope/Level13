@@ -12,6 +12,7 @@ void readLine (int fd, char *buffer, int size);
 void newLineTrim (char *str);
 int connectToServer(const char *hostname);
 void sendCommand(int fd, const char *command);
+void listFiles(int fd);
 
 int main(void){
 
@@ -58,7 +59,7 @@ int main(void){
     getchar();
 
     if (choice2 == 'L'){
-        //listfiles
+        listFiles(fd);
     }else if (choice2 == 'D'){
         //downloadfile
     }else if (choice2 == 'Q'){
@@ -82,7 +83,7 @@ void readLine (int fd, char *buffer, int size){
             break;
         }
 
-        buffer[1] = ch;
+        buffer[i] = ch;
         i++;
 
         if (ch == '\n'){
@@ -117,4 +118,30 @@ void newLineTrim(char *str){
 
 void sendCommand(int fd, const char *command){
     write(fd, command, strlen(command));
+}
+
+void listFiles(int fd){
+    char line[BUFFER_SIZE];
+
+    sendCommand(fd,"LIST\n");
+    readLine(fd, line, BUFFER_SIZE);
+
+    // if (strncmp(line, "+OK", 3) != 0){
+    //     printf("Server error: %s\n",line);
+    //     return;
+    // }
+
+    printf("\nAvailable files:\n");
+    printf("%-15s %s\n", "Size", "Filename");
+
+    while(1){
+        readLine(fd,line,BUFFER_SIZE);
+
+        if (strcmp(line, ".") == 0){
+            break;
+        }
+        printf("%s\n", line);
+    }
+
+
 }
