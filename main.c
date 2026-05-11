@@ -236,9 +236,9 @@ void downloadFile(int fd, const char *filename){
     fclose(out);
     
     if (totalRead == fileSize){
-        double elapsed = (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec) / 1000000;
+        double elapsed = (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec) / 1000000.0;
 
-        double kb = fileSize / 1024;
+        double kb = fileSize / 1024.0;
         double speed = kb / elapsed;
 
         printf("Downloaded %s successfully.\n", filename);
