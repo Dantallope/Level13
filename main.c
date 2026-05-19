@@ -197,6 +197,19 @@ void downloadFile(int fd, const char *filename){
         return;
     }
 
+    if (fileExists(filename) == 1){
+        char answer;
+
+        printf("File already exists, overwrite? Y/N: ");
+        scanf("%c", &answer);
+        getchar();
+
+        if (answer != Y && answer != 'y'){
+            printf("Download canceled.\n");
+            return;
+        }
+    }
+
     snprintf(command, sizeof(command), "GET %s\n", filename);
     sendCommand(fd, command);
 
