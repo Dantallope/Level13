@@ -204,7 +204,7 @@ void downloadFile(int fd, const char *filename){
         scanf("%c", &answer);
         getchar();
 
-        if (answer != Y && answer != 'y'){
+        if (answer != 'Y' && answer != 'y'){
             printf("Download canceled.\n");
             return;
         }
