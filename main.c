@@ -130,6 +130,8 @@ void sendCommand(int fd, const char *command){
 
 void listFiles(int fd){
     char line[BUFFER_SIZE];
+    long size;
+    char filename[256];
 
     sendCommand(fd,"LIST\n");
     readLine(fd, line, BUFFER_SIZE);
@@ -140,7 +142,9 @@ void listFiles(int fd){
     }
 
     printf("\nAvailable files:\n");
-    printf("%-15s %s\n", "Size", "Filename");
+    printf("--------------------------------------\n");
+    printf("%-20s %12s\n", "Filename", "Size");
+    printf("--------------------------------------\n");
 
     while(1){
         readLine(fd,line,BUFFER_SIZE);
@@ -148,7 +152,12 @@ void listFiles(int fd){
         if (strcmp(line, ".") == 0){
             break;
         }
+
+        if(sscanf(line, "%ld %255s", &size, filename) == 2){
+            printf("%-20s %12ld bytes\n", filename, size);
+        }else{
         printf("%s\n", line);
+        }
     }
 
 
