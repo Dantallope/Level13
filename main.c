@@ -15,6 +15,7 @@ void sendCommand(int fd, const char *command);
 void listFiles(int fd);
 void downloadFile(int fd, const char *filename);
 long getFileSize(int fd, const char *filename);
+int fileExists(const char *filename);
 
 int main(void){
 
@@ -258,3 +259,12 @@ void downloadFile(int fd, const char *filename){
     }
 }
 
+int fileExists(const char *filename){
+    FILE *fp = fopen(filename, "r");
+
+    if (fp != NULL){
+        fclose(fp);
+        return 1;
+    }
+    return 0;
+}
